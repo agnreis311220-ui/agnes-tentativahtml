@@ -1,0 +1,457 @@
+ /* ==========================================================================
+           1. VARIÁVEIS DE DESIGN E CORES (CYBERPUNK FIGHTING GAME)
+           ========================================================================== */
+        :root {
+            --bg-dark: #08080c;
+            --bg-panel: #10101a;
+            --bg-card: #161626;
+            --neon-purple: #9d4edd;
+            --neon-pink: #ff007f;
+            --neon-cyan: #00f5d4;
+            --neon-blue: #0077ff;
+            --text-main: #ffffff;
+            --text-muted: #6e6e8a;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-body);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(16, 16, 26, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 16, 26, 0.4) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==========================================================================
+           2. CABEÇALHO COM ANIMAÇÃO GRADIENTE RGB (COLOR WAVE)
+           ========================================================================== */
+        header {
+            text-align: center;
+            padding: 50px 20px 30px 20px;
+        }
+
+        @keyframes rgb-wave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-title {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            display: inline-block;
+            
+            /* Efeito Gradiente Lavado */
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-cyan), var(--neon-pink));
+            background-size: 300% 300%;
+            animation: rgb-wave 5s linear infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            /* Sombra de Brilho Proeminente */
+            filter: drop-shadow(0 0 15px rgba(157, 78, 221, 0.6));
+        }
+
+        .subtitle {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            margin-top: 10px;
+            text-shadow: 0 0 8px rgba(0, 245, 212, 0.4);
+        }
+
+        /* Títulos de Interface de Luta */
+        .section-header {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 40px 0 20px 0;
+            border-left: 4px solid var(--neon-purple);
+            padding-left: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ==========================================================================
+           3. SEÇÃO DE CENÁRIOS (MAP SELECTION)
+           ========================================================================== */
+        .stage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .stage-card {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .stage-placeholder {
+            height: 120px;
+            background: linear-gradient(135deg, #0f0a1c 0%, #05141c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* Grid cibernético decorativo interno */
+        .stage-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: linear-gradient(transparent 50%, rgba(157, 78, 221, 0.05) 50%), linear-gradient(90deg, transparent 50%, rgba(157, 78, 221, 0.05) 50%);
+            background-size: 10px 10px;
+        }
+
+        .stage-placeholder::after {
+            content: 'SELECT ARENA';
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            letter-spacing: 1px;
+        }
+
+        .stage-info {
+            padding: 15px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        /* Estado ativo e interações da Arena */
+        .stage-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.2);
+        }
+
+        .stage-card:hover .stage-info { color: var(--neon-cyan); }
+
+        .stage-card.active-stage {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+        }
+        .stage-card.active-stage .stage-info { color: var(--neon-pink); }
+        .stage-card.active-stage .stage-placeholder::after {
+            content: 'MATCH ZONE';
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+        }
+
+        /* ==========================================================================
+           4. CENTRAL DE CONTROLE - BOTÃO DE INICIAR BATALHA
+           ========================================================================== */
+        .control-panel {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .btn-battle {
+            background: transparent;
+            color: var(--text-main);
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            padding: 18px 60px;
+            border: 2px solid var(--neon-purple);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.3), inset 0 0 15px rgba(157, 78, 221, 0.2);
+        }
+
+        .btn-battle:hover {
+            transform: scale(1.05);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 35px rgba(0, 245, 212, 0.5), inset 0 0 20px rgba(0, 245, 212, 0.2);
+            text-shadow: 0 0 8px var(--text-main);
+        }
+
+        .btn-battle:active {
+            transform: scale(0.98);
+        }
+
+        /* ==========================================================================
+           5. ARENA DE BATALHA (MECÂNICA VERSUS)
+           ========================================================================== */
+        .battle-arena {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @media (max-width: 1024px) {
+            .battle-arena { grid-template-columns: 1fr; gap: 15px; }
+            .vs-badge { margin: 15px auto; }
+        }
+
+        .team-side {
+            background: rgba(16, 16, 26, 0.4);
+            border-radius: 12px;
+            padding: 25px;
+            min-height: 440px;
+            border-top: 3px solid transparent;
+        }
+
+        .team-side.ally { 
+            border-top-color: var(--neon-blue); 
+            box-shadow: inset 0 10px 20px rgba(0, 119, 255, 0.05);
+        }
+        .team-side.enemy { 
+            border-top-color: var(--neon-pink); 
+            box-shadow: inset 0 10px 20px rgba(255, 0, 127, 0.05);
+        }
+
+        .team-header {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ally .team-header { color: var(--neon-cyan); }
+        .enemy .team-header { color: var(--neon-pink); }
+
+        .vs-badge {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-style: italic;
+            text-align: center;
+            color: var(--text-main);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0,0,0,0.4);
+            border-radius: 4px;
+        }
+
+        .slots-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 640px) {
+            .slots-container { grid-template-columns: 1fr; }
+        }
+
+        /* Slot Vazio Estilizado */
+        .empty-slot {
+            height: 300px;
+            border: 2px dashed rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* ==========================================================================
+           6. DESIGN PREMIUM DOS CARDS DE PERSONAGENS
+           ========================================================================== */
+        .card-fighter {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.85);
+            animation: cardDeploy 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes cardDeploy {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .ally .card-fighter { 
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 119, 255, 0.3); 
+        }
+        .enemy .card-fighter { 
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3); 
+        }
+
+        /* Avatar com imagem real via Picsum */
+        .card-banner {
+            height: 170px;
+            width: 100%;
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        /* Filtro de cor por time sobre a imagem */
+        .ally .card-banner::before, .enemy .card-banner::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            opacity: 0.25;
+            border-radius: 4px;
+        }
+        .ally .card-banner::before { background: var(--neon-blue); }
+        .enemy .card-banner::before { background: var(--neon-pink); }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-bottom: auto;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-power-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .power-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+        }
+
+        .power-value {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .ally .power-value { color: var(--neon-cyan); text-shadow: 0 0 8px rgba(0, 245, 212, 0.5); }
+        .enemy .power-value { color: var(--neon-pink); text-shadow: 0 0 8px rgba(255, 0, 127, 0.5); }
+
+        /* ==========================================================================
+           7. MODAL DE VENCEDOR / OVERLAY DE RESULTADO (POPUP FIGHTING GAME)
+           ========================================================================== */
+        .overlay-result {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(4, 4, 6, 0.9);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-box {
+            background: #0c0c14;
+            border: 3px solid var(--neon-purple);
+            padding: 50px 80px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 650px;
+            width: 90%;
+            box-shadow: 0 0 40px rgba(157, 78, 221, 0.4);
+            transform: scale(0.8);
+            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes modalPop {
+            to { transform: scale(1); }
+        }
+
+        .modal-verdict {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* Cores do resultado dinâmico */
+        .verdict-win { color: var(--neon-cyan); text-shadow: 0 0 20px rgba(0, 245, 212, 0.6); }
+        .verdict-lose { color: var(--neon-pink); text-shadow: 0 0 20px rgba(255, 0, 127, 0.6); }
+        .verdict-draw { color: var(--neon-purple); text-shadow: 0 0 20px rgba(157, 78, 221, 0.6); }
+
+        .modal-summary {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+
+        .btn-close-modal {
+            background: var(--neon-purple);
+            color: var(--text-main);
+            font-family: var(--font-display);
+            border: none;
+            padding: 12px 35px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.4);
+        }
+
+        .btn-close-modal:hover {
+            background: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+        }

@@ -3,378 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Universe | Gacha & Wiki</title>
+    <title>Agnes Cards | Premium Anime Arena</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ==========================================================================
-           1. ESTILIZAÇÃO GERAL E VARIÁVEIS (TEMA ANIME NEON)
-           ========================================================================== */
-        :root {
-            --bg-color: #0b0c10;
-            --card-bg: #1f2833;
-            --neon-purple: #9d4edd;
-            --neon-pink: #ff007f;
-            --neon-cyan: #00f0ff;
-            --text-color: #c5c6c7;
-            --white: #ffffff;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            padding-bottom: 50px;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(180deg, rgba(157, 78, 221, 0.1) 0%, rgba(11, 12, 16, 0) 100%);
-        }
-
-        h1 {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 3.5rem;
-            color: var(--white);
-            text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        p.subtitle {
-            font-size: 1.1rem;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        h2.section-title {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 2.2rem;
-            color: var(--white);
-            border-bottom: 3px solid var(--neon-purple);
-            display: inline-block;
-            padding-bottom: 5px;
-            margin: 50px 0 30px 0;
-            text-shadow: 0 0 8px var(--neon-purple);
-        }
-
-        /* ==========================================================================
-           2. GALERIA DE PERSONAGENS (GRID RESPONSIVO)
-           ========================================================================== */
-        .character-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        /* Efeito de pulso/brilho constante nos cards através de animação */
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 10px rgba(157, 78, 221, 0.4); }
-            50% { box-shadow: 0 0 20px rgba(157, 78, 221, 0.8); }
-            100% { box-shadow: 0 0 10px rgba(157, 78, 221, 0.4); }
-        }
-
-        .char-card {
-            background-color: var(--card-bg);
-            border: 2px solid var(--neon-purple);
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            animation: pulse-glow 3s infinite ease-in-out;
-        }
-
-        /* Hover suave com aumento de escala e mudança da cor do brilho */
-        .char-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 25px var(--neon-cyan) !important;
-            animation: none;
-        }
-
-        /* Placeholder simulando a imagem do personagem */
-        .char-img-placeholder {
-            width: 100%;
-            height: 320px;
-            background: linear-gradient(45deg, #120c1f, #2a1b40);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 3rem;
-            position: relative;
-            border-bottom: 2px solid var(--neon-purple);
-        }
-
-        /* Ilustrações em CSS para simular os avatares */
-        .char-img-placeholder::after {
-            content: '✦';
-            font-size: 5rem;
-            color: var(--neon-purple);
-            opacity: 0.6;
-        }
-
-        .char-info {
-            padding: 20px;
-        }
-
-        .char-name {
-            font-size: 1.5rem;
-            color: var(--white);
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .char-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .stat-bar {
-            display: flex;
-            justify-content: space-between;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-        }
-
-        .stat-bar span:last-child {
-            color: var(--neon-cyan);
-            font-weight: bold;
-        }
-
-        /* ==========================================================================
-           3. SISTEMA DE SORTEIO (GACHA)
-           ========================================================================== */
-        .gacha-section {
-            background: linear-gradient(135deg, #1a0933 0%, #0b0c10 100%);
-            border: 3px dashed var(--neon-pink);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin-top: 60px;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.2);
-        }
-
-        .gacha-btn {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--neon-pink);
-            font-family: 'Permanent Marker', cursive;
-            font-size: 1.8rem;
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 0 15px var(--neon-pink);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-bottom: 30px;
-        }
-
-        /* Hover dinâmico no botão de invocação */
-        .gacha-btn:hover {
-            transform: scale(1.1);
-            background-color: var(--neon-pink);
-            box-shadow: 0 0 30px var(--neon-pink), 0 0 50px var(--neon-pink);
-            text-shadow: 0 0 5px #000;
-        }
-
-        .gacha-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Container de carregamento (Invocação) */
-        .summon-loading {
-            display: none;
-            margin: 20px auto;
-            border: 5px solid rgba(0, 240, 255, 0.1);
-            border-radius: 50%;
-            border-top: 5px solid var(--neon-cyan);
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); box-shadow: 0 0 10px var(--neon-cyan); }
-            100% { transform: rotate(360deg); box-shadow: 0 0 10px var(--neon-cyan); }
-        }
-
-        /* Card do Personagem Sorteado */
-        .summon-result {
-            display: none;
-            max-width: 350px;
-            margin: 20px auto 0 auto;
-            transform: scale(0);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes popIn {
-            to { transform: scale(1); }
-        }
-
-        .summon-result .char-card {
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 25px var(--neon-pink);
-            background: #25122c;
-        }
-
-        .summon-result .char-img-placeholder::after {
-            color: var(--neon-pink);
-            content: '★';
-        }
-    </style>
+   
 </head>
 <body>
 
     <header>
-        <h1>ANIME UNIVERSE</h1>
-        <p class="subtitle">Sua fenda dimensional de heróis e invocações</p>
+        <h1 class="main-title">Agnes cards</h1>
+        <p class="subtitle">Premium Anime Tactical Arena</p>
     </header>
 
-    <div class="container">
-
-        <section id="galeria">
-            <center><h2 class="section-title">Personagens em Destaque</h2></center>
-            <div class="character-grid">
-                
-                <article class="char-card">
-                    <div class="char-img-placeholder"></div>
-                    <div class="char-info">
-                        <h3 class="char-name">Zoro</h3>
-                        <div class="char-stats">
-                            <div class="stat-bar"><span>Força</span><span>95/100</span></div>
-                            <div class="stat-bar"><span>Agilidade</span><span>88/100</span></div>
-                            <div class="stat-bar"><span>Haki</span><span>92/100</span></div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="char-card">
-                    <div class="char-img-placeholder"></div>
-                    <div class="char-info">
-                        <h3 class="char-name">Killua</h3>
-                        <div class="char-stats">
-                            <div class="stat-bar"><span>Força</span><span>84/100</span></div>
-                            <div class="stat-bar"><span>Agilidade</span><span>99/100</span></div>
-                            <div class="stat-bar"><span>Eletricidade</span><span>95/100</span></div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="char-card">
-                    <div class="char-img-placeholder"></div>
-                    <div class="char-info">
-                        <h3 class="char-name">Sukuna</h3>
-                        <div class="char-stats">
-                            <div class="stat-bar"><span>Força</span><span>98/100</span></div>
-                            <div class="stat-bar"><span>Agilidade</span><span>94/100</span></div>
-                            <div class="stat-bar"><span>Energia Amaldiçoada</span><span>100/100</span></div>
-                        </div>
-                    </div>
-                </article>
-
+    <main class="container">
+        
+        <section>
+            <div class="section-header">
+                <span>Selecionar Campo de Batalha</span>
+            </div>
+            <div class="stage-grid">
+                <div class="stage-card active-stage" onclick="mudarCenario(this)">
+                    <div class="stage-placeholder"></div>
+                    <div class="stage-info">Torneio de Dark Tournament</div>
+                </div>
+                <div class="stage-card" onclick="mudarCenario(this)">
+                    <div class="stage-placeholder"></div>
+                    <div class="stage-info">Campos de Gelo de Juto</div>
+                </div>
+                <div class="stage-card" onclick="mudarCenario(this)">
+                    <div class="stage-placeholder"></div>
+                    <div class="stage-info">Ruínas de Shiganshina</div>
+                </div>
             </div>
         </section>
 
-        <section id="gacha" class="gacha-section">
-            <h2 class="section-title" style="margin-top: 0; text-shadow: 0 0 8px var(--neon-pink);">Portal de Invocação</h2>
-            <p style="margin-bottom: 25px; color: var(--white);">Gaste seus cristais e invoque um guerreiro lendário para sua equipe!</p>
-            
-            <button class="gacha-btn" onclick="invocarPersonagem()">Sortear Agora!</button>
-            
-            <div class="summon-loading" id="loading"></div>
-
-            <div class="summon-result" id="resultContainer">
-                <article class="char-card">
-                    <div class="char-img-placeholder" id="gachaImg"></div>
-                    <div class="char-info">
-                        <h3 class="char-name" id="gachaName">Nome do Herói</h3>
-                        <div class="char-stats" id="gachaStats">
-                            </div>
-                    </div>
-                </article>
-            </div>
+        <section class="control-panel">
+            <button class="btn-battle" id="btnAction" onclick="executarFaseBatalha()">Iniciar Batalha</button>
         </section>
 
+        <section class="battle-arena">
+            
+            <div class="team-side ally">
+                <div class="team-header">
+                    <span>Seu Time</span>
+                    <span id="score-ally">SCORE: --</span>
+                </div>
+                <div class="slots-container" id="container-ally">
+                    <div class="empty-slot">Slot Vazio</div>
+                    <div class="empty-slot">Slot Vazio</div>
+                    <div class="empty-slot">Slot Vazio</div>
+                </div>
+            </div>
+
+            <div class="vs-badge">VS</div>
+
+            <div class="team-side enemy">
+                <div class="team-header">
+                    <span>Time Inimigo</span>
+                    <span id="score-enemy">SCORE: --</span>
+                </div>
+                <div class="slots-container" id="container-enemy">
+                    <div class="empty-slot">Slot Vazio</div>
+                    <div class="empty-slot">Slot Vazio</div>
+                    <div class="empty-slot">Slot Vazio</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="overlay-result" id="modalResult">
+        <div class="modal-box">
+            <div class="modal-verdict" id="modalVerdict">VITÓRIA!</div>
+            <div class="modal-summary" id="modalSummary">Seu Time (000) vs (000) Time Inimigo</div>
+            <button class="btn-close-modal" onclick="fecharResultado()">Remontar Deck</button>
+        </div>
     </div>
 
     <script>
-        // Banco de dados dos personagens que podem ser sorteados
-        const listaPersonagens = [
-            {
-                nome: "Naruto Uzumaki",
-                stats: { "Força": "92", "Agilidade": "90", "Chakra": "99" }
-            },
-            {
-                nome: "Son Goku",
-                stats: { "Força": "100", "Agilidade": "96", "Ki": "100" }
-            },
-            {
-                nome: "Monkey D. Luffy",
-                stats: { "Força": "94", "Agilidade": "95", "Haki": "93" }
-            },
-            {
-                nome: "Saitama",
-                stats: { "Força": "∞", "Agilidade": "99", "Resistência": "∞" }
-            }
+        // Banco de Dados Premium de Combatentes (Id Imagem usando IDs fixos e variados do Picsum)
+        const dbPersonagens = [
+            { nome: "Son Goku", poder: 99, imgId: "1025" },
+            { nome: "Naruto Uzumaki", poder: 92, imgId: "1062" },
+            { nome: "Monkey D. Luffy", poder: 94, imgId: "1074" },
+            { nome: "Levi Ackerman", poder: 88, imgId: "1084" },
+            { nome: "Gojo Satoru", poder: 98, imgId: "16" },
+            { nome: "Roronoa Zoro", poder: 90, imgId: "26" },
+            { nome: "Saitama", poder: 100, imgId: "38" },
+            { nome: "Sukuna", poder: 97, imgId: "42" },
+            { nome: "Killua Zoldyck", poder: 86, imgId: "64" },
+            { nome: "Vegeta", poder: 96, imgId: "84" }
         ];
 
-        function invocarPersonagem() {
-            const loading = document.getElementById('loading');
-            const resultContainer = document.getElementById('resultContainer');
-            const gachaName = document.getElementById('gachaName');
-            const gachaStats = document.getElementById('gachaStats');
+        // Lógica de manipulação visual das Arenas/Cenários
+        function mudarCenario(cardAlvo) {
+            document.querySelectorAll('.stage-card').forEach(card => {
+                card.classList.remove('active-stage');
+            });
+            cardAlvo.classList.add('active-stage');
+        }
 
-            // Esconde o resultado anterior e mostra o efeito de loading
-            resultContainer.style.display = 'none';
-            loading.style.display = 'block';
+        // Construtor Estrutural do Elemento HTML do Card
+        function renderizarCardFighter(fighter, delay) {
+            return `
+                <div class="card-fighter" style="animation-delay: ${delay}s">
+                    <div class="card-banner" style="background-image: url('https://picsum.photos/id/${fighter.imgId}/300/400')"></div>
+                    <div class="card-title">${fighter.nome}</div>
+                    <div class="card-power-row">
+                        <span class="power-label">POWER</span>
+                        <span class="power-value">${fighter.poder}</span>
+                    </div>
+                </div>
+            `;
+        }
 
-            // Simula um delay de 1.5 segundos para a animação da invocação parecer real
+        // Lógica Principal de Invocação, Processamento e Julgamento das Pontuações
+        function executarFaseBatalha() {
+            const btn = document.getElementById('btnAction');
+            btn.disabled = true;
+            btn.innerText = "SORTEANDO DECK...";
+
+            // Sorteia 6 combatentes aleatórios únicos sem repetição
+            const deckSorteado = [...dbPersonagens].sort(() => 0.5 - Math.random());
+            
+            const aliados = [deckSorteado[0], deckSorteado[1], deckSorteado[2]];
+            const inimigos = [deckSorteado[3], deckSorteado[4], deckSorteado[5]];
+
+            // Renderização dos cards com atrasos incrementais (Delay Efeito Cascata)
+            const boxAlly = document.getElementById('container-ally');
+            const boxEnemy = document.getElementById('container-enemy');
+
+            boxAlly.innerHTML = renderizarCardFighter(aliados[0], 0) + renderizarCardFighter(aliados[1], 0.1) + renderizarCardFighter(aliados[2], 0.2);
+            boxEnemy.innerHTML = renderizarCardFighter(inimigos[0], 0.3) + renderizarCardFighter(inimigos[1], 0.4) + renderizarCardFighter(inimigos[2], 0.5);
+
+            // Cálculo Matemático da Força Total das Linhas de Frente
+            const somaAlly = aliados.reduce((total, p) => total + p.poder, 0);
+            const somaEnemy = inimigos.reduce((total, p) => total + p.poder, 0);
+
+            // Exibe scores parciais nas caixas de equipes
+            document.getElementById('score-ally').innerText = `SCORE: ${somaAlly}`;
+            document.getElementById('score-enemy').innerText = `SCORE: ${somaEnemy}`;
+
+            // Timeout Estratégico (1.5s) para o clímax dramático do veredito
             setTimeout(() => {
-                // Esconde o loading
-                loading.style.display = 'none';
+                const modal = document.getElementById('modalResult');
+                const verdictText = document.getElementById('modalVerdict');
+                const summaryText = document.getElementById('modalSummary');
 
-                // Escolhe um personagem aleatório do Array
-                const indiceAleatorio = Math.floor(Math.random() * listaPersonagens.length);
-                const heroiSorteado = listaPersonagens[indiceAleatorio];
+                summaryText.innerText = `Seu Time (${somaAlly} PTS) vs (${somaEnemy} PTS) Time Inimigo`;
 
-                // Atualiza o DOM com os dados do personagem sorteado
-                gachaName.innerText = heroiSorteado.nome;
-                
-                // Limpa os atributos anteriores e insere os novos
-                gachaStats.innerHTML = '';
-                for (const [key, value] of Object.entries(heroiSorteado.stats)) {
-                    gachaStats.innerHTML += `
-                        <div class="stat-bar">
-                            <span>${key}</span>
-                            <span>${value}/100</span>
-                        </div>
-                    `;
+                if (somaAlly > somaEnemy) {
+                    verdictText.innerText = "Vitória do Seu Time!";
+                    verdictText.className = "modal-verdict verdict-win";
+                } else if (somaEnemy > somaAlly) {
+                    verdictText.innerText = "Derrota!";
+                    verdictText.className = "modal-verdict verdict-lose";
+                } else {
+                    verdictText.innerText = "Empate Perfeito!";
+                    verdictText.className = "modal-verdict verdict-draw";
                 }
 
-                // Exibe o container com a animação CSS aplicada
-                resultContainer.style.display = 'block';
+                modal.style.display = 'flex';
+                btn.disabled = false;
+                btn.innerText = "REINICIAR BATALHA";
+            }, 1500);
+        }
 
-            }, 1500); 
+        // Fecha o painel de modal e limpa os campos para uma nova partida
+        function fecharResultado() {
+            document.getElementById('modalResult').style.display = 'none';
         }
     </script>
 </body>
